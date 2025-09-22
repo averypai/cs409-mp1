@@ -1,10 +1,22 @@
 /* Your SCSS here. */
+$modal-close-color: #aaa;
+$text-color: #333;
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$dark-blue: #34495e;
+$light-gray: #ecf0f1;
+$white-color: #ffffff;
+$text-color: #333;
+$footer-bg: #1a252f;
+$footer-text: #bdc3c7;
+$nav-blue: #42688e;
+
 body, html {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.6;
-  color: #333;
+  color: $text-color;
 }
 
 body.modal-open {
@@ -27,7 +39,7 @@ header, section {
   background-position: center;
   background-attachment: fixed;
   position: relative;
-  color: #ffffff;
+  color: $white-color;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,7 +48,7 @@ header, section {
 
 
 #modal-trigger {
-  color: #3498db;
+  color: $primary-color;
   text-decoration: underline;
   cursor: pointer;
   font-weight: bold;
@@ -55,7 +67,7 @@ header, section {
 }
 
 .modal {
-  background-color: #fff;
+  background-color: $white-color;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.6);
@@ -64,8 +76,6 @@ header, section {
   position: relative;
 }
 
-$modal-close-color: #aaa;
-$text-color: #333;
 .modal-close {
   position: absolute;
   top: 10px;
@@ -136,46 +146,46 @@ $text-color: #333;
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.carousel-nav:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
 
-.carousel-nav.prev {
-  left: 20px;
-}
+  &.prev {
+    left: 20px;
+  }
 
-.carousel-nav.next {
-  right: 20px;
+  &.next {
+    right: 20px;
+  }
 }
 
 .section-skills {
-  background-color: #ffffff;
-  color: #2c3e50;
-}
+  background-color: $white-color;
+  color: $secondary-color;
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
 
-.skill-item {
-  background-color: #ecf0f1;
-  padding: 70px;
-  border-radius: 8px;
-  text-align: center;
+  .skill-item {
+    background-color: $light-gray;
+    padding: 70px;
+    border-radius: 8px;
+    text-align: center;
+  }
 }
 
 .section-contact {
-  background-color: #3498db;
-  color: #ffffff;
+  background-color: $primary-color;
+  color: $white-color;
 }
 
 .footer {
-  background-color: #1a252f;
-  color: #bdc3c7;
+  background-color: $footer-bg;
+  color: $footer-text;
   text-align: center;
   padding: 40px 0;
 }
@@ -199,58 +209,56 @@ h3 {
 }
 
 .main-nav {
-  background-color: #34495e;
+  background-color: $dark-blue;
   position: sticky;
   top: 0;
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: padding 0.3s ease, font-size 0.3s ease;
   padding: 20px 0;
-}
 
-.main-nav .content-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-.main-nav .logo {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #fff;
-  text-decoration: none;
-  margin-left: 25px;
-}
+  &.scrolled {
+      padding: 10px 0;
+  }
 
-.main-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-}
+  .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: $white-color;
+      text-decoration: none;
+      margin-left: 25px;
+    }
 
-.main-nav ul li {
-  font-size: 1.25em;
-  margin-left: 15px;
-  margin-right: 15px;
-}
+  ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+    li {
+      font-size: 1.25em;
+      margin-left: 15px;
+      margin-right: 15px;
 
-.main-nav ul li a {
-  color: #ecf0f1;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.2s ease;
-  padding: 15px 15px;
-}
+      a {
+          color: $light-gray;
+          text-decoration: none;
+          font-weight: bold;
+          transition: color 0.2s ease;
+          padding: 15px 15px;
 
-.main-nav ul li a:hover, .main-nav ul li a.active {
-  color: #3498db;
-  background-color: #42688e;
-}
-
-
-.main-nav.scrolled {
-  padding: 10px 0;
+        &:hover, &.active {
+          background-color: $nav-blue;
+          color: $primary-color;
+        }
+      }
+    }
+  }
 }
 
 .profile-image {
