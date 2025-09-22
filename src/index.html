@@ -3,11 +3,187 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <script src="https://kit.fontawesome.com/2cb35ed0bd.js" crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MP1</title>
+        <title>Avery Pai's website</title>
     </head>
     <body>
-        <h1>Hello World! Welcome to MP1!</h1>
-        <img src="assets/image.jpg">
+        <nav class="main-nav" id="mainNav">
+            <div class="content-container">
+                <a href="#" class="logo">Avery Pai</a>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Resume</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <header class="header">
+            <div class="content-container">
+                <img src="assets/Personal_website.png" alt="Avery Pai" class="profile-image">
+            </div>
+        </header>
+
+        <section class="section-about" id="about">
+            <div class="carousel-slider">
+                <img src="assets/bg1.jpg" alt="Background Image 1">
+                <img src="assets/bg2.jpg" alt="Background Image 2">
+                <img src="assets/bg3.jpg" alt="Background Image 3">
+            </div>
+            <button class="carousel-nav prev">&#10094;</button>
+            <button class="carousel-nav next">&#10095;</button>
+            <div class="content-overlay">
+                <div class="content-container">
+                    <h2>About Me
+                        <a class="linkedin-icon"
+                           href="https://www.linkedin.com/in/averypai/">
+                        </a>
+                    </h2>
+                    <p>Avery Pai is a graduate student in MCS program at University of Illinois Urbana-Champaign (<span id="modal-trigger">UIUC</span>). </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-skills" id="skills" >
+            <div class="content-container">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-item"><h3>Web Design</h3></div>
+                    <div class="skill-item"><h3>Machine Learning</h3></div>
+                    <div class="skill-item"><h3>Natural Language Processing</h3></div>
+                </div>
+                <br>
+                <h2>Hobbies</h2>
+                <div class="skills-grid">
+                    <div class="skill-item"><h3>Hiking</h3></div>
+                    <div class="skill-item"><h3>Scuba diving</h3></div>
+                    <div class="skill-item"><h3>Traveling</h3></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-contact" id="contact">
+            <div class="content-container">
+                <h2>Video</h2>
+                <video controls class="video">
+                    <source src="assets/video.mp4" type="video/mp4">
+                </video>
+            </div>
+        </section>
+
+        <footer class="footer" id="footer">
+            <div class="content-container">
+                <p>&copy; 2024 My Website. All rights reserved.</p>
+            </div>
+        </footer>
     </body>
+
+    <div id="popup-modal" class="modal-backdrop hidden">
+        <div class="modal">
+            <span class="modal-close">&times;</span>
+            <h2>More About UIUC</h2>
+            <p>The University of Illinois Urbana-Champaign is a public land-grant research university in the Champaign–Urbana metropolitan area, Illinois, United States. Established in 1867, it is the founding campus and flagship institution of the University of Illinois System.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Part 1: Nav Bar Logic ---
+            const nav = document.getElementById('mainNav');
+            const navLinks = document.querySelectorAll('.main-nav ul li a');
+            const sections = document.querySelectorAll('section');
+
+            const handleScroll = () => {
+                // --- Logic for shrinking nav bar ---
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+
+                // --- Logic for highlighting active nav link ---
+                let currentSectionId = '';
+                // Iterate backwards from the last section to the first
+                for (let i = sections.length - 1; i >= 0; i--) {
+                    const section = sections[i];
+                    const sectionTop = section.offsetTop;
+
+                    // A good trigger point is when the top of the section is in the top third of the viewport
+                    if (window.scrollY >= sectionTop - window.innerHeight / 3) {
+                        currentSectionId = section.getAttribute('id');
+                        break;
+                    }
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    // Check if the link's href matches the current section's ID
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', handleScroll);
+
+            // --- Part 2: Background Carousel Logic ---
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                const slider = aboutSection.querySelector('.carousel-slider');
+                const slides = aboutSection.querySelectorAll('.carousel-slider img');
+                const prevBtn = aboutSection.querySelector('.prev');
+                const nextBtn = aboutSection.querySelector('.next');
+
+                let currentIndex = 0;
+
+                const goToSlide = (index) => {
+                    const slideWidth = aboutSection.clientWidth;
+                    slider.style.transform = `translateX(${-index * slideWidth}px)`;
+                };
+
+                goToSlide(0);
+
+                nextBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    goToSlide(currentIndex);
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                    goToSlide(currentIndex);
+                });
+
+                window.addEventListener('resize', () => goToSlide(currentIndex));
+            }
+
+            // --- Part 3: Modal/Pop-up Logic ---
+            const modal = document.getElementById('popup-modal');
+            const openBtn = document.getElementById('modal-trigger');
+            const closeBtn = document.querySelector('.modal-close');
+
+            const openModal = () => {
+                modal.classList.remove('hidden');
+                document.body.classList.add('modal-open');
+            };
+
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+            };
+
+            if (modal && openBtn && closeBtn) {
+                openBtn.addEventListener('click', openModal);
+                closeBtn.addEventListener('click', closeModal);
+
+                // Close modal if user clicks on the backdrop
+                modal.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        closeModal();
+                    }
+                });
+            }
+        });
+    </script>
 </html>
